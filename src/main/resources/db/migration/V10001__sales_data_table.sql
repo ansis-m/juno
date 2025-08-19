@@ -18,3 +18,4 @@ CREATE TABLE IF NOT EXISTS tracking.sales_data
 );
 
 CREATE INDEX IF NOT EXISTS tracking_id_idx ON tracking.sales_data (tracking_id);
+CREATE INDEX IF NOT EXISTS visit_date_idx ON tracking.sales_data (visit_date);

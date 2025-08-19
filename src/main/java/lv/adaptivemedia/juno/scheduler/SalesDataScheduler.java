@@ -31,7 +31,7 @@ public class SalesDataScheduler {
      * Scheduled task that inserts historical transaction data.
      * Starts and runs for a limited number of runs
      */
-    @Scheduled(fixedRate = 500, timeUnit = TimeUnit.MILLISECONDS)
+    @Scheduled(fixedDelay = 500, timeUnit = TimeUnit.MILLISECONDS)
     public void insertHistoricalTransactionData() {
         while (historicalDataStart.isBefore(LocalDateTime.now())) {
             String trackingId = salesDataService.insertTransactionData(historicalDataStart);
@@ -44,7 +44,7 @@ public class SalesDataScheduler {
      * Scheduled task that inserts generated sales data.
      * Starts and runs indefinitely.
      */
-    @Scheduled(fixedRate = 500, timeUnit = TimeUnit.MILLISECONDS)
+    @Scheduled(fixedDelay = 500, timeUnit = TimeUnit.MILLISECONDS)
     public void insertTransactionalData() {
         if (config.isSchedulerEnabled()) {
             while (currentDataStart.isBefore(LocalDateTime.now())) {

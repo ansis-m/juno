@@ -49,24 +49,11 @@ public class SalesDataService {
         LocalDateTime fromDateTime = fromDate.atStartOfDay();
         LocalDateTime toDateTime = toDate.atTime(LocalTime.MAX);
 
-        List<SalesDataRecord> result = dslContext
+        return dslContext
                 .selectFrom(SALES_DATA)
                 .where(SALES_DATA.VISIT_DATE.ge(fromDateTime)
                         .and(SALES_DATA.VISIT_DATE.le(toDateTime)))
-                .fetchInto(SalesDataRecord.class);
-
-        return result.stream()
-                .map(salesData ->
-                        new SalesDataDto(
-                                salesData.getId(),
-                                salesData.getTrackingId(),
-                                salesData.getVisitDate(),
-                                salesData.getSaleDate(),
-                                salesData.getSalePrice(),
-                                salesData.getProduct(),
-                                salesData.getCommissionAmount()
-                        ))
-                .toList();
+                .fetchInto(SalesDataDto.class);
     }
 
     /**
